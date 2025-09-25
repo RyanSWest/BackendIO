@@ -1,0 +1,52 @@
+# ================================
+# 1️⃣ Register a new user
+POST http://localhost:3000/api/register
+Content-Type: application/json
+
+{
+  "name": "Tony",
+  "email": "tony@gmail.com",
+  "password": "123456"
+}
+
+###
+
+# ================================
+# 2️⃣ Login the user (capture token)
+POST http://localhost:3000/api/login
+Content-Type: application/json
+
+{
+  "email": "tony@gmail.com",
+  "password": "123456"
+}
+
+ 
+###
+
+# ================================
+# 3️⃣ Upload art via URL (for sale)
+POST http://localhost:3000/api/gallery/upload
+Authorization: Bearer {{ "$2b$10$YT7o11OX8ZjoNQpXgiWwQeDCDzN9oTyLUyJhA9RpXCZi2rRGc0BQK",}}
+Content-Type: application/json
+
+{
+  "url": "https://example.com/art.png",
+  "forSale": true,
+  "price": 250.00
+}
+
+###
+
+# ================================
+# 4️⃣ Upload local file (for sale)
+# REST Client cannot handle multipart directly.
+# Use PowerShell curl instead:
+# curl.exe -X POST http://localhost:3000/api/gallery/upload -H "Authorization: Bearer <token>" -F "art=@C:/Users/bluem/Downloads/Wombat.jpg" -F "forSale=true" -F "price=300"
+
+###
+
+# ================================
+# 5️⃣ Get user gallery
+GET http://localhost:3000/api/gallery
+Authorization: Bearer {{token}}
